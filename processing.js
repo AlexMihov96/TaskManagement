@@ -15,6 +15,18 @@ function process() {
     });
 
     let commands = {
+		append: function ([a]) {
+            if (!a) {
+                throw new Error("invalid")
+            }
+            theArray.push(a);
+        },
+        prepend: function (arr) {
+            if (arr.length != 1) {
+                throw new Error("Error: invalid number of parameters")
+            }
+            theArray.splice(0, 0, arr[0]);
+        },
         sort: function ([a]) {
             if (a) {
                 throw new Error("invalid parameters")
