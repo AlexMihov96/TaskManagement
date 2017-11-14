@@ -92,6 +92,7 @@ function process() {
                     break;
                 default:
                     throw new Error('Error: invalid command parameters');
+            }
         },
         reverse: function () {
             theArray = theArray.reverse();
@@ -143,3 +144,4 @@ function process() {
             }
         }
     }
+}
