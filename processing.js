@@ -33,6 +33,16 @@ function process() {
             }
             theArray.sort() + '\n';
         },
+        count: function (word) {
+            let count = 0;
+            theArray.forEach(elem => {
+               if(elem === word) {
+                   count++;
+               }
+            });
+            return count;
+        },
+
          roll: function ([direction]) {
             switch (direction) {
                 case 'right':
