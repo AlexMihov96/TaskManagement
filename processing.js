@@ -14,4 +14,47 @@ function process() {
         }
     });
 
-let commands = {};
+let commands = {
+	sort: function ([a]) {
+            if (a) {
+                throw new Error("invalid parameters")
+            }
+            theArray.sort() + '\n';
+        }
+};
+
+ function execute() {
+
+        let tokens = input.val().split(' ').filter(w => w !== '');
+        let currentCommand = tokens[0];
+        let data = tokens.slice(1);
+
+        if (currentCommand) {
+            try {
+                if (theArray.length === 0) {
+                    tokens.forEach(e => theArray.push(e));
+                    result.text(result.text() + theArray.join(' ') + '\n');
+                } else {
+                    if (!commands.hasOwnProperty(currentCommand)) {
+                        throw new Error('Error: invalid command');
+                    }
+                    commands[currentCommand](data);
+                    if (currentCommand != 'end') {
+                        if(currentCommand === 'count') {
+                            result.text(result.text() + commands[currentCommand](tokens[1]) + '\n');
+                            return;
+                        }
+                        result.text(result.text() + theArray.join(' ') + '\n');
+                    } else {
+                        result.text('Finished');
+                        executeBtn.off('click', execute);
+                    }
+
+                }
+            } catch (err) {
+                result.text(result.text() + err.message + '\n');
+            } finally {
+                input.val('');
+            }
+        }
+    }
