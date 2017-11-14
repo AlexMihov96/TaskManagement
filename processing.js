@@ -20,15 +20,39 @@ function process() {
                 throw new Error("invalid parameters")
             }
             theArray.sort() + '\n';
-        }
-    };
-
-    delete: function (index) {
+        },
+         roll: function ([direction]) {
+            switch (direction) {
+                case 'right':
+                    let lastElement = theArray.pop();
+                    theArray.unshift(lastElement);
+                    break;
+                case 'left':
+                    let firstElem = theArray[0];
+                    let newArray = [];
+                    for(let i = 1; i < theArray.length; i++) {
+                        newArray.push(theArray[i]);
+                    }
+                    newArray[newArray.length] = firstElem;
+                    theArray = newArray;
+                    break;
+                default:
+                    throw new Error('Error: invalid command parameters');
+        },
+        reverse: function () {
+            theArray = theArray.reverse();
+        },
+        delete: function (index) {
         if (index < 0 || index > theArray.length - 1 || !Number(index)) {
             throw new Error(`Error: invalid index "${index}"`);
         }
         theArray.splice(index, 1);
-    },
+        },
+        end: function () {
+        }
+    };
+
+    
 
     function execute() {
 
