@@ -15,6 +15,22 @@ function process() {
     });
 
     let commands = {
+		 insert: function ([index, word]) {
+            try {
+                let testNumber = Number(index);
+                if ((testNumber > theArray.length) || (testNumber < 0) || !Number.isInteger(testNumber)) {
+                    throw new Error(`Error: invalid index "${index}"`);
+                }
+            } catch (err){
+                throw new Error(`Error: invalid index "${index}"`);
+            }
+
+            if (!word) {
+                throw new Error(`Error: invalid insert parameters`);
+            }
+
+            theArray.splice(index, 0, word);
+        },
 		append: function ([a]) {
             if (!a) {
                 throw new Error("invalid")
