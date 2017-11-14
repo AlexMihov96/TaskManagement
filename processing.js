@@ -7,23 +7,30 @@ function process() {
     let executeBtn = $('#executeBtn');
 
     executeBtn.on('click', execute);
-    input.keypress(function(event) {
+    input.keypress(function (event) {
         let keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') {
             execute();
         }
     });
 
-let commands = {
-	sort: function ([a]) {
+    let commands = {
+        sort: function ([a]) {
             if (a) {
                 throw new Error("invalid parameters")
             }
             theArray.sort() + '\n';
         }
-};
+    };
 
- function execute() {
+    delete: function (index) {
+        if (index < 0 || index > theArray.length - 1 || !Number(index)) {
+            throw new Error(`Error: invalid index "${index}"`);
+        }
+        theArray.splice(index, 1);
+    },
+
+    function execute() {
 
         let tokens = input.val().split(' ').filter(w => w !== '');
         let currentCommand = tokens[0];
@@ -40,7 +47,7 @@ let commands = {
                     }
                     commands[currentCommand](data);
                     if (currentCommand != 'end') {
-                        if(currentCommand === 'count') {
+                        if (currentCommand === 'count') {
                             result.text(result.text() + commands[currentCommand](tokens[1]) + '\n');
                             return;
                         }
